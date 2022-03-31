@@ -16,14 +16,20 @@ import java.time.Duration;
 
 public class AddressForm implements Task {
 
-    public static AddressForm onThePage() {
-        return Tasks.instrumented(AddressForm.class);
+    private String strZip;
+
+    public AddressForm(String strZip) {
+        this.strZip = strZip;
+    }
+
+    public static AddressForm onThePage(String strZip) {
+        return Tasks.instrumented(AddressForm.class, strZip);
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Enter.theValue("110711").into(AddressFormPage.INPUT_ZIP),
+                Enter.theValue(strZip).into(AddressFormPage.INPUT_ZIP),
                 Click.on(AddressFormPage.NEXT_BUTTON)
         );
 

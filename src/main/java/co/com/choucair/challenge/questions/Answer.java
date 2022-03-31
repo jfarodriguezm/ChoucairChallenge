@@ -9,16 +9,28 @@ import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.questions.Text;
 import net.serenitybdd.screenplay.questions.TextContent;
 
-public class Answer implements Question<String> {
+public class Answer implements Question<Boolean> {
     private String question;
 
-    public static Answer toThePage(){
-        return new Answer();
+    public Answer(String question){
+        this.question=question;
+    }
+
+    public static Answer toThe(String question){
+        return new Answer(question);
     }
 
     @Override
-    public String answeredBy(Actor actor) {
-        String msg = TextContent.of(WelcomePage.MSG_WELCOME).viewedBy(actor).asString();
-        return msg;
+    public Boolean answeredBy(Actor actor) {
+        boolean result = false;
+        String msg = "";
+        String aux = Text.of(WelcomePage.MSG_WELCOME).viewedBy(actor).asString();
+        if (aux.equals("How uTest Works")){
+            msg = "welcome message";
+        }
+        if (question.equals(msg)){
+            result = true;
+        }
+        return result;
     }
 }

@@ -6,5 +6,5 @@ import org.openqa.selenium.By;
 
 public class WelcomePage extends PageObject {
     public static final Target MSG_WELCOME = Target.the("Welcome message")
-            .located(By.className("welcome-lead"));
+            .located(By.xpath("//strong[contains(text(),'How uTest Works')]"));
 }
